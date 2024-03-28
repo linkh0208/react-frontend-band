@@ -1,0 +1,35 @@
+@import url(https://db.onlinewebfonts.com/c/646d0f373867abe81537970740fff7e7?family=BrooklynSamuelsFive-Bold);
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: black;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* { 
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  max-width: 100vw;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-family: BrooklynSamuelsFive-Bold, sans-serif;
+  font-weight: 600;
+}
