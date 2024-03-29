@@ -45,3 +45,69 @@
   padding: 0;
   transform: translateX(-4rem);
 }
+
+.playlistcard {
+  width: 1000px;
+  background-color: rgb(15, 15, 15);
+  box-shadow: 0 4px 8px rgb(0, 0, 0, 0.2);
+  border-radius: 10px;
+  color: white;
+  padding: 30px;
+}
+
+.music {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 175px;
+  width: 100%;
+}
+
+.playlistname {
+  font-family: BrooklynSamuelsFive-Bold, sans-serif;
+  color: white;
+  font-weight: 600;
+  font-size: 2.7rem;
+}
+
+.track {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 0;
+  width: 59%;
+}
+
+.trackinfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+}
+
+.trackName {
+  padding: 0 10px 0 0;
+  font-family: BrooklynSamuelsFive;
+  font-size: 1.2rem;
+}
+
+
+.progressbarcontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 3px;
+  margin: 0 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.progressbar {
+  background-color: white;
+  height: 100%;
+}
+
+.playbutton, .downloadbutton {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
