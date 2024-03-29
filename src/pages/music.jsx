@@ -3,6 +3,7 @@ import track1 from '../assets/track1.mp3'
 import track2 from '../assets/track2.mp3'
 import track3 from '../assets/track3.mp3'
 import track4 from '../assets/track4.mp3'
+import albumart from '../assets/albumart.jpg'
 
 function Music() {
     const tracks = [
@@ -16,6 +17,7 @@ function Music() {
             <PlaylistCard
                 playlistName='Album 1'
                 tracks={tracks}
+                albumArt={albumart}
             />
         </div>
     )

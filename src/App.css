@@ -15,7 +15,7 @@
 .home-page {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   width: 100vw;
   min-height: 100vh;
@@ -36,6 +36,7 @@
 .homebg {
   object-fit: fill;
   width: 100%;
+  opacity: 0.5;
 }
 
 .nav-link {
@@ -51,16 +52,18 @@
   padding: 0;
   transform: translateX(-4rem) translateY(-3rem);
   z-index: 5;
+  user-select: none;
 }
 
 .playlistcard {
   width: 1000px;
-  background-color: rgba(66, 66, 66, 0.9);
+  background-image: linear-gradient(to top left, rgb(0, 79, 116), rgb(10, 10, 10) 60%, rgb(27, 27, 27));
+  opacity: 0.98;
   border-radius: 10px;
   color: white;
   padding: 30px;
   min-height: 700px;
-  box-shadow: 0px 5px 10px rgb(46, 46, 43, 1);
+  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
 }
 
 .music {
@@ -79,12 +82,15 @@
   font-size: 2.7rem;
 }
 
+.trackscontainer {
+  width: 59%;
+}
 .track {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px 0;
-  width: 59%;
+  width: 100%;
 }
 
 .trackinfo {
@@ -148,13 +154,27 @@
 }
 
 .title {
-  margin-top: 30vh;
-  padding-left: 20px;
-  padding-right: 20px;
   font-family: BrooklynSamuelsFive-Bold;
-  color:white;
+  color: #fceb8b;
   font-size: 100px;
-  background-color: rgb(20, 20, 20, 0.8);
-  border-radius: 15px;
-  box-shadow: 0px 5px 5px rgb(46, 46, 43, 0.7);
+  text-shadow: 0 2px 2px #fceb8b, 
+  -2px 5px 0 #fcc547, 
+  -4px 10px 0 #f0a131,
+  -8px 15px 0 #f0a133,
+  -12px 20px 0 #e96016,
+  -16px 25px 0 #da350b;
+  user-select: none;
+}
+
+.bigcontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.albumart {
+  width: 300px;
+  height: 300px;
+  transform: translateY(-50px);
+  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
 }

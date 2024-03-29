@@ -84,7 +84,7 @@ function Track({ trackName, trackUrl, downloadUrl }) {
         setProgress(percent*100)
     }
 
-    return (
+    return (    
         <div className='track'>
             <div className='trackinfo'>
                 <span className='trackName'>{trackName}</span>
