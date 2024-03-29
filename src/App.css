@@ -52,7 +52,6 @@
   padding: 0;
   transform: translateX(-4rem) translateY(-3rem);
   z-index: 5;
-  user-select: none;
 }
 
 .playlistcard {
