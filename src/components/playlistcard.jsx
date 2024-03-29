@@ -1,8 +1,32 @@
 import Track from './track'
-function PlaylistCard({ playlistName, tracks, albumArt }) {
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver'
+
+function PlaylistCard({ playlistName, tracks, albumArt, colorScheme, download }) {
+    const { color1, color2, color3 } = colorScheme;
+    
+    async function handleDownload() {
+        const zip = new JSZip()
+        const zipFolder = zip.folder(playlistName)
+        const trackDownloads = tracks.map(async function(track, index) {
+            const response = await fetch(track.downloadUrl)
+            const blob = await response.blob()
+            zipFolder.file(`${track.name}.mp3`, blob)
+        })
+        const albumArtResponse = await fetch(albumArt)
+        const blob = await albumArtResponse.blob()
+        zipFolder.file("albumart.jpg", blob)
+        await Promise.all(trackDownloads)
+        zip.generateAsync({type: 'blob'}).then(function(content){
+            saveAs(content, `${playlistName}.zip`)
+        })
+    }
     return (
-        <div className='playlistcard'>
+        <div className='playlistcard' style={{
+            backgroundImage: `linear-gradient(to top left, ${color1}, ${color2} 60%, ${color3})`
+        }}>
             <span className='playlistname'>{playlistName}</span>
+            <button className ='albumdlbutton' role='button' onClick={handleDownload}>Download Album</button>
             <div className='bigcontainer'>    
                 <div className='trackscontainer'>
                     {tracks.map(function(track, index) {
@@ -16,7 +40,7 @@ function PlaylistCard({ playlistName, tracks, albumArt }) {
                         )
                     })}
                 </div>
-                <img className='albumart' src={albumArt}></img>
+                    <img className='albumart' src={albumArt}></img>
             </div>
         </div>
     )

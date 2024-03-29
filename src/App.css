@@ -36,7 +36,7 @@
 .homebg {
   object-fit: fill;
   width: 100%;
-  opacity: 0.5;
+  opacity: 0.4
 }
 
 .nav-link {
@@ -56,13 +56,14 @@
 
 .playlistcard {
   width: 1000px;
-  background-image: linear-gradient(to top left, rgb(0, 79, 116), rgb(10, 10, 10) 60%, rgb(27, 27, 27));
+  /* background-image: linear-gradient(to top left, rgb(0, 79, 116), rgb(10, 10, 10) 60%, rgb(27, 27, 27)); */
   opacity: 0.98;
   border-radius: 10px;
   color: white;
   padding: 30px;
   min-height: 700px;
   box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 
 .music {
@@ -176,4 +177,64 @@
   height: 300px;
   transform: translateY(-50px);
   box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* CSS */
+.albumdlbutton {
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-family: BrooklynSamuelsFive-Bold;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: absolute;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+  bottom: 30px;
+  right: 30px;
+}
+
+.albumdlbutton:hover {
+  background-color: #e4e4e4;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+.albumdlbutton:disabled {
+  background-color: #FAFBFC;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959DA5;
+  cursor: default;
+}
+
+.albumdlbutton:active {
+  background-color: #c5c5c5;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+.albumdlbutton:focus {
+  outline: 1px transparent;
+}
+
+.albumdlbutton:before {
+  display: none;
+}
+
+.albumdlbutton:-webkit-details-marker {
+  display: none;
 }

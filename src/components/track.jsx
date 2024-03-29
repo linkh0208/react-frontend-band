@@ -2,12 +2,14 @@ import { useState, useRef, useEffect } from 'react'
 import { MdDownload } from "react-icons/md";
 import { IoPlaySharp, IoPauseSharp  } from "react-icons/io5";
 
-function Track({ trackName, trackUrl, downloadUrl }) {
+function Track({ trackName, trackUrl, downloadUrl, }) {
     const [progress, setProgress] = useState(0)
     const [isPaused, setIsPaused] = useState(true)
     const audioRef = useRef(new Audio(trackUrl))
     const progressBarRef = useRef(null)
     const isDragging = useRef(false)
+
+
 
     useEffect(function() {
         isPaused ? audioRef.current.pause() : audioRef.current.play()
