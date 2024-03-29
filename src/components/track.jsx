@@ -6,14 +6,26 @@ function Track({ trackName, trackUrl, downloadUrl }) {
     const [progress, setProgress] = useState(0)
     const [isPaused, setIsPaused] = useState(true)
     const audioRef = useRef(new Audio(trackUrl))
+    const progressBarRef = useRef(null)
+    const isDragging = useRef(false)
 
     useEffect(function() {
         isPaused ? audioRef.current.pause() : audioRef.current.play()
+        function onAudioEnd() {
+            setIsPaused(true)
+            setProgress(0)
+        }
+        const audio = audioRef.current
+        audio.addEventListener('ended', onAudioEnd)
+        return function() {
+            audio.removeEventListener('ended', onAudioEnd)
+        }
     }, [isPaused])
 
     useEffect(function() {
         function updateProgress() {
-            const duration = audioRef.current.duration
+            if (isDragging.current) return
+            const duration = audioRef.current.duration || 1
             const currentTime = audioRef.current.currentTime
             const progress = (currentTime/duration)*100
             setProgress(progress)
@@ -35,6 +47,42 @@ function Track({ trackName, trackUrl, downloadUrl }) {
     function handleDownload() {
         window.location.href = downloadUrl
     }
+    function startDragging(e) {
+        isDragging.current = true
+        progressBarRef.current.classList.add('grabbing')
+        updatePosition(e)
+    }
+    function stopDragging() {
+        if (!isDragging.current) return
+        isDragging.current = false
+        progressBarRef.current.classList.remove('grabbing')
+    }
+    function updatePosition(e) {
+        if (!isDragging.current) return
+        const progressBar = progressBarRef.current
+        const bounds = progressBar.getBoundingClientRect()
+        let percent = (e.clientX-bounds.left)/bounds.width
+        percent = Math.max(0, Math.min(1, percent))
+        const newTime = percent*audioRef.current.duration
+        audioRef.current.currentTime = newTime
+        setProgress(percent*100)
+    }
+    useEffect(function() {
+        document.addEventListener('mousemove', updatePosition)
+        document.addEventListener('mouseup', stopDragging)
+        return function() {
+            document.removeEventListener('mousemove', updatePosition)
+            document.removeEventListener('mouseup', stopDragging)
+        }
+    })
+    function setPlaybackTime(e) {
+        const progressBar = progressBarRef.current
+        const bounds = progressBar.getBoundingClientRect()
+        const percent = (e.clientX-bounds.left)/bounds.width
+        const newTime = percent*audioRef.current.duration
+        audioRef.current.currentTime = newTime
+        setProgress(percent*100)
+    }
 
     return (
         <div className='track'>
@@ -44,12 +92,14 @@ function Track({ trackName, trackUrl, downloadUrl }) {
                     {isPaused ?  <IoPlaySharp /> : <IoPauseSharp /> }
                 </div>
             </div>
-            <div className='progressbarcontainer'>
-                <div className='progressbar' style={{ width: `${progress}%` }}></div>
+            <div className="progressbarcontainer" ref={progressBarRef} onMouseDown={startDragging}>
+                <div className='progressbar' style={{ width: `${progress}%` }}>
+                    <div className='progressindicator' style={{ transform: `translateX(${progressBarRef.current ? progressBarRef.current.offsetWidth*progress/100-2:0}px)` }}></div>
+                </div>
             </div>
-            <div onClick={handleDownload} className='downloadbutton'>
+            <a href={trackUrl} download className='downloadbutton'>
                 <MdDownload />
-            </div>
+            </a>
         </div>
     )
 }

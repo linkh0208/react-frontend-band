@@ -9,6 +9,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 4rem;
+  background-color: transparent;
 }
 
 .home-page {
@@ -23,9 +24,13 @@
 }
 
 .homebg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   margin: 0;
   width: 100%;
+  z-index: -1;
 }
 
 .homebg {
@@ -40,27 +45,31 @@
 }
 
 .logo {
+  position: absolute;
   height: 168px;
   margin: 0;
   padding: 0;
-  transform: translateX(-4rem);
+  transform: translateX(-3rem) translateY(-4rem);
+  z-index: 5;
 }
 
 .playlistcard {
   width: 1000px;
-  background-color: rgb(15, 15, 15);
+  background-color: rgb(51, 51, 51);
   box-shadow: 0 4px 8px rgb(0, 0, 0, 0.2);
   border-radius: 10px;
   color: white;
   padding: 30px;
+  min-height: 700px;
 }
 
 .music {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 175px;
+  padding-top: 175px;
   width: 100%;
+  min-height: 100vh;
 }
 
 .playlistname {
@@ -97,17 +106,54 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  position: relative;
   height: 3px;
   margin: 0 10px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: grab;
 }
 
 .progressbar {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.3);
   height: 100%;
+  position: relative;
+}
+
+.grabbing {
+  cursor: grabbing !important;
 }
 
 .playbutton, .downloadbutton {
   cursor: pointer;
   font-size: 1.5rem;
+}
+
+.progressindicator {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  width: 10px;
+  left: -5px;
+  background-color: transparent;
+}
+
+.progressindicator::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 5px;
+  width: 2px;
+  background-color: white;
+}
+
+.circlethingy {
+  position: absolute;
+  top: -180px;
+  left: -180px;
+  border-radius: 50%;
+  width: 500px;
+  height: 500px;
+  background-image: radial-gradient(circle, #070707, #070707 45%, transparent 70%, transparent);
+  z-index: 4;
 }
