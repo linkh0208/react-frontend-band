@@ -1,9 +1,13 @@
 import Track from './track'
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver'
+import { useState } from 'react';
+
 
 function PlaylistCard({ playlistName, tracks, albumArt, colorScheme, download }) {
     const { color1, color2, color3 } = colorScheme;
+    const [currentlyPlaying, setCurrentlyPlaying] = useState(null)
+
     
     async function handleDownload() {
         const zip = new JSZip()
@@ -21,6 +25,14 @@ function PlaylistCard({ playlistName, tracks, albumArt, colorScheme, download })
             saveAs(content, `${playlistName}.zip`)
         })
     }
+
+    function handlePlayTrack(trackUrl) {
+        if (currentlyPlaying && currentlyPlaying !== trackUrl) {
+            setCurrentlyPlaying(null)
+        }
+        setCurrentlyPlaying(trackUrl)
+    }
+ 
     return (
         <div className='playlistcard' style={{
             backgroundImage: `linear-gradient(to top left, ${color1}, ${color2} 60%, ${color3})`
@@ -32,6 +44,10 @@ function PlaylistCard({ playlistName, tracks, albumArt, colorScheme, download })
                     {tracks.map(function(track, index) {
                         return (
                             <Track
+                                onPlay={function() {
+                                    handlePlayTrack(track.url)
+                                }}
+                                isPlaying={track.url===currentlyPlaying}
                                 key={index}
                                 trackName={track.name}
                                 trackUrl={track.url}
