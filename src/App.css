@@ -10,6 +10,7 @@
   align-items: center;
   padding: 0 4rem;
   background-color: transparent;
+  z-index: 1000;
 }
 
 .home-page {
@@ -48,7 +49,7 @@
 .nav-link {
   margin: 30px;
   font-size: 1.2rem;
-  color:#fff;
+  color: #fff;
 }
 
 .logo {
@@ -61,15 +62,27 @@
 }
 
 .playlistcard {
-  width: 1000px;
   /* background-image: linear-gradient(to top left, rgb(0, 79, 116), rgb(10, 10, 10) 60%, rgb(27, 27, 27)); */
   opacity: 0.98;
   border-radius: 10px;
   color: white;
   padding: 30px;
-  min-height: 700px;
+  padding-top: 230px;
+  padding-bottom: 70px;
   box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
   position: relative;
+  margin-bottom: 100px;
+  width: 90vw;
+}
+
+@media (min-width: 1050px) {
+  .playlistcard {
+    width: 1000px;
+    /* min-height: 700px; */
+    padding-top: 30px;
+    padding-bottom: 30px;
+    min-height: 400px;
+  }
 }
 
 .music {
@@ -78,7 +91,8 @@
   align-items: center;
   padding-top: 175px;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
+  overflow: scroll;
 }
 
 .playlistname {
@@ -89,8 +103,15 @@
 }
 
 .trackscontainer {
-  width: 67%;
+  width: 100%;
 }
+
+@media (min-width: 1050px) {
+  .trackscontainer {
+    width: 67%;
+  }
+}
+
 .track {
   display: flex;
   flex-direction: row;
@@ -104,12 +125,22 @@
   justify-content: space-between;
   align-items: center;
   width: 50%;
+  font-size: 0.7rem;
 }
+
+
 
 .trackName {
   padding: 0 10px 0 0;
   font-family: BrooklynSamuelsFive-Bold;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
+  min-width: 4rem;
+}
+
+@media (min-width: 1050px) {
+  .trackName {
+    font-size: 1.2rem;
+  }
 }
 
 
@@ -135,7 +166,8 @@
   cursor: grabbing !important;
 }
 
-.playbutton, .downloadbutton {
+.playbutton,
+.downloadbutton {
   cursor: pointer;
   font-size: 1.5rem;
 }
@@ -171,12 +203,12 @@
   font-family: BrooklynSamuelsFive-Bold;
   color: #fceb8b;
   font-size: 100px;
-  text-shadow: 0 2px 2px #fceb8b, 
-  -2px 5px 0 #fcc547, 
-  -4px 10px 0 #f0a131,
-  -8px 15px 0 #f0a133,
-  -12px 20px 0 #e96016,
-  -16px 25px 0 #da350b;
+  text-shadow: 0 2px 2px #fceb8b,
+    -2px 5px 0 #fcc547,
+    -4px 10px 0 #f0a131,
+    -8px 15px 0 #f0a133,
+    -12px 20px 0 #e96016,
+    -16px 25px 0 #da350b;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -188,10 +220,24 @@
 }
 
 .albumart {
-  width: 300px;
-  height: 300px;
-  transform: translateY(-50px);
+  position: absolute;
+  width: 200px;
+  height: 200px;
   box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+  top: 21px;
+  left: calc(50% - 100px);
+}
+
+@media (min-width: 1050px) {
+  .albumart {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    top: 0px;
+    right: 0px;
+    left: inherit;
+    margin: 30px;
+  }
 }
 
 /* CSS */
@@ -267,4 +313,101 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+/* Hamburger menu base styles */
+.hamburger-menu {
+  display: block;
+  cursor: pointer;
+  width: 30px;
+  height: 25px;
+  position: relative;
+  transform: rotate(0deg);
+  transition: .5s ease-in-out;
+  z-index: 1001; /* Ensure it's above the overlay */
+}
+
+.hamburger-menu span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+}
+
+.hamburger-menu span:nth-child(1) {
+  top: 0px;
+}
+
+.hamburger-menu span:nth-child(2), .hamburger-menu span:nth-child(3) {
+  top: 11px;
+}
+
+.hamburger-menu span:nth-child(4) {
+  top: 22px;
+}
+
+.hamburger-menu.is-active span:nth-child(1) {
+  top: 11px;
+  width: 0%;
+  left: 50%;
+}
+
+.hamburger-menu.is-active span:nth-child(2) {
+  transform: rotate(45deg);
+}
+
+.hamburger-menu.is-active span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.hamburger-menu.is-active span:nth-child(4) {
+  top: 11px;
+  width: 0%;
+  left: 50%;
+}
+
+/* Adjustments for when the menu is active */
+.rightnavbar.active {
+  transform: translateX(0);
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000; /* Behind the menu items */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .rightnavbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background: transparent; /* Adjust the background to match your theme */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+}
+
+@media (min-width: 768px) {
+  .hamburger-menu {
+    display: none;
+  }
 }

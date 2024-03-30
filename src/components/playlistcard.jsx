@@ -8,11 +8,11 @@ function PlaylistCard({ playlistName, tracks, albumArt, colorScheme, download })
     const { color1, color2, color3 } = colorScheme;
     const [currentlyPlaying, setCurrentlyPlaying] = useState(null)
 
-    
+
     async function handleDownload() {
         const zip = new JSZip()
         const zipFolder = zip.folder(playlistName)
-        const trackDownloads = tracks.map(async function(track, index) {
+        const trackDownloads = tracks.map(async function (track, index) {
             const response = await fetch(track.downloadUrl)
             const blob = await response.blob()
             zipFolder.file(`${track.name}.mp3`, blob)
@@ -21,7 +21,7 @@ function PlaylistCard({ playlistName, tracks, albumArt, colorScheme, download })
         const blob = await albumArtResponse.blob()
         zipFolder.file("albumart.jpg", blob)
         await Promise.all(trackDownloads)
-        zip.generateAsync({type: 'blob'}).then(function(content){
+        zip.generateAsync({ type: 'blob' }).then(function (content) {
             saveAs(content, `${playlistName}.zip`)
         })
     }
@@ -32,22 +32,22 @@ function PlaylistCard({ playlistName, tracks, albumArt, colorScheme, download })
         }
         setCurrentlyPlaying(trackUrl)
     }
- 
+
     return (
         <div className='playlistcard' style={{
             backgroundImage: `linear-gradient(to top left, ${color1}, ${color2} 60%, ${color3})`
         }}>
             <span className='playlistname'>{playlistName}</span>
-            <button className ='albumdlbutton' onClick={handleDownload}>Download Album</button>
-            <div className='bigcontainer'>    
+            <button className='albumdlbutton' onClick={handleDownload}>Download Album</button>
+            <div className='bigcontainer'>
                 <div className='trackscontainer'>
-                    {tracks.map(function(track, index) {
+                    {tracks.map(function (track, index) {
                         return (
                             <Track
-                                onPlay={function() {
+                                onPlay={function () {
                                     handlePlayTrack(track.url)
                                 }}
-                                isPlaying={track.url===currentlyPlaying}
+                                isPlaying={track.url === currentlyPlaying}
                                 key={index}
                                 trackName={track.name}
                                 trackUrl={track.url}
@@ -56,8 +56,8 @@ function PlaylistCard({ playlistName, tracks, albumArt, colorScheme, download })
                         )
                     })}
                 </div>
-                    <img className='albumart' src={albumArt} alt='album art'></img>
             </div>
+            <img className='albumart' src={albumArt} alt='album art'></img>
         </div>
     )
 }

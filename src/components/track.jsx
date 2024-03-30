@@ -86,33 +86,52 @@ function Track({ trackName, trackUrl, downloadUrl, onPlay, isPlaying }) {
     }
 
     function startDragging(e) {
-        isDragging.current = true
-        progressBarRef.current.classList.add('grabbing')
-        updatePosition(e)
+        e.preventDefault(); // Prevent default touch action
+        isDragging.current = true;
+        progressBarRef.current.classList.add('grabbing');
+        updatePosition(e.type.includes('mouse') ? e : e.touches[0]);
     }
+
     function stopDragging() {
-        if (!isDragging.current) return
-        isDragging.current = false
-        progressBarRef.current.classList.remove('grabbing')
+        if (!isDragging.current) return;
+        isDragging.current = false;
+        progressBarRef.current.classList.remove('grabbing');
     }
+
     function updatePosition(e) {
-        if (!isDragging.current) return
-        const progressBar = progressBarRef.current
-        const bounds = progressBar.getBoundingClientRect()
-        let percent = (e.clientX - bounds.left) / bounds.width
-        percent = Math.max(0, Math.min(1, percent))
-        const newTime = percent * audioRef.current.duration
-        audioRef.current.currentTime = newTime
-        setProgress(percent * 100)
-    }
-    useEffect(function () {
-        document.addEventListener('mousemove', updatePosition)
-        document.addEventListener('mouseup', stopDragging)
-        return function () {
-            document.removeEventListener('mousemove', updatePosition)
-            document.removeEventListener('mouseup', stopDragging)
+        if (!isDragging.current) return;
+        const progressBar = progressBarRef.current;
+        const bounds = progressBar.getBoundingClientRect();
+        let percent;
+        // Adjusting for touch events
+        if (e.type.includes('touch')) {
+            percent = (e.touches[0].clientX - bounds.left) / bounds.width;
+        } else {
+            percent = (e.clientX - bounds.left) / bounds.width;
         }
-    })
+        percent = Math.max(0, Math.min(1, percent));
+        const newTime = percent * audioRef.current.duration;
+        audioRef.current.currentTime = newTime;
+        setProgress(percent * 100);
+    }
+
+    useEffect(function () {
+        const updatePositionWithEvent = (e) => updatePosition(e.type.includes('touch') ? e.touches[0] : e);
+        const element = document;
+        element.addEventListener('mousemove', updatePositionWithEvent);
+        element.addEventListener('mouseup', stopDragging);
+        // Adding touch event listeners
+        element.addEventListener('touchmove', updatePositionWithEvent);
+        element.addEventListener('touchend', stopDragging);
+
+        return function () {
+            element.removeEventListener('mousemove', updatePositionWithEvent);
+            element.removeEventListener('mouseup', stopDragging);
+            // Removing touch event listeners
+            element.removeEventListener('touchmove', updatePositionWithEvent);
+            element.removeEventListener('touchend', stopDragging);
+        };
+    }, []);
 
     return (
         <div className='track'>
@@ -123,7 +142,7 @@ function Track({ trackName, trackUrl, downloadUrl, onPlay, isPlaying }) {
                 </div>
             </div>
             <div className='time'>{formatTime(audioRef.current.currentTime)}</div>
-            <div className="progressbarcontainer" ref={progressBarRef} onMouseDown={startDragging}>
+            <div className="progressbarcontainer" ref={progressBarRef} onMouseDown={startDragging} onTouchStart={startDragging}>
                 <div className='progressbar' style={{ width: `${progress}%` }}>
                     <div className='progressindicator' style={{ transform: `translateX(${progressBarRef.current ? progressBarRef.current.offsetWidth * progress / 100 - 2 : 0}px)` }}></div>
                 </div>
