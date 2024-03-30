@@ -38,7 +38,7 @@ function PlaylistCard({ playlistName, tracks, albumArt, colorScheme, download })
             backgroundImage: `linear-gradient(to top left, ${color1}, ${color2} 60%, ${color3})`
         }}>
             <span className='playlistname'>{playlistName}</span>
-            <button className ='albumdlbutton' role='button' onClick={handleDownload}>Download Album</button>
+            <button className ='albumdlbutton' onClick={handleDownload}>Download Album</button>
             <div className='bigcontainer'>    
                 <div className='trackscontainer'>
                     {tracks.map(function(track, index) {
@@ -56,7 +56,7 @@ function PlaylistCard({ playlistName, tracks, albumArt, colorScheme, download })
                         )
                     })}
                 </div>
-                    <img className='albumart' src={albumArt}></img>
+                    <img className='albumart' src={albumArt} alt='album art'></img>
             </div>
         </div>
     )

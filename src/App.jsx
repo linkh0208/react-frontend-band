@@ -8,9 +8,8 @@ import homebg from './assets/tvbonfire.jpg'
 function Background() {
   return (
     <div className='homebg-container'>
-      <img
+      <div
         className='homebg'
-        src={homebg}
       />
     </div>
   )

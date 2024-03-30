@@ -36,7 +36,13 @@
 .homebg {
   object-fit: fill;
   width: 100%;
-  opacity: 0.4
+  min-height: 100vh;
+  opacity: 0.4;
+  background-image: url('./assets/tvbonfire.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .nav-link {
@@ -171,6 +177,7 @@
   -8px 15px 0 #f0a133,
   -12px 20px 0 #e96016,
   -16px 25px 0 #da350b;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -206,8 +213,8 @@
   padding: 6px 16px;
   position: absolute;
   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-  user-select: none;
   -webkit-user-select: none;
+  user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
@@ -249,4 +256,15 @@
 
 .time {
   font-size: 0.8rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

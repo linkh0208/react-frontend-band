@@ -131,6 +131,7 @@ function Track({ trackName, trackUrl, downloadUrl, onPlay, isPlaying }) {
             <div className='time'>
                 {trackTime}</div>
             <a href={trackUrl} download className='downloadbutton'>
+                <span className="visually-hidden">Download</span>
                 <MdDownload />
             </a>
         </div>
