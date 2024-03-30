@@ -199,6 +199,15 @@
   background-color: white;
 }
 
+.titlecontainer {
+  overflow: hidden;
+  display:flex;
+  flex-direction: column;
+  border: 3px solid red;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 .title {
   font-family: BrooklynSamuelsFive-Bold;
   color: #fceb8b;
@@ -211,12 +220,6 @@
     -16px 25px 0 #da350b;
   -webkit-user-select: none;
   user-select: none;
-}
-
-@media (max-width: 768px) {
- .title {
-font-size: 55px;
- } 
 }
 
 .bigcontainer {
