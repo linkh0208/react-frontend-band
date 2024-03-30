@@ -203,15 +203,16 @@
   overflow: hidden;
   display:flex;
   flex-direction: column;
-  border: 3px solid red;
   justify-content: center;
   align-items: center;
   text-align: center;
+  width: 100%;
 }
+
 .title {
   font-family: BrooklynSamuelsFive-Bold;
   color: #fceb8b;
-  font-size: clamp(10px, 100px, 100px);
+  font-size: clamp(1rem, 20vw, 10rem);
   text-shadow: 0 2px 2px #fceb8b,
     -2px 5px 0 #fcc547,
     -4px 10px 0 #f0a131,
