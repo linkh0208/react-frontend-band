@@ -213,6 +213,12 @@
   user-select: none;
 }
 
+@media (max-width: 768px) {
+ .title {
+font-size: 55px;
+ } 
+}
+
 .bigcontainer {
   display: flex;
   flex-direction: row;
