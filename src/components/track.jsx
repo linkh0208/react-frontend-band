@@ -89,7 +89,7 @@ function Track({ trackName, trackUrl, downloadUrl, onPlay, isPlaying }) {
         e.preventDefault(); // Prevent default touch action
         isDragging.current = true;
         progressBarRef.current.classList.add('grabbing');
-        updatePosition(e.type.includes('mouse') ? e : e.touches[0]);
+        updatePosition(e instanceof TouchEvent  ? e.touches[0] : e);
     }
 
     function stopDragging() {
@@ -104,7 +104,7 @@ function Track({ trackName, trackUrl, downloadUrl, onPlay, isPlaying }) {
         const bounds = progressBar.getBoundingClientRect();
         let percent;
         // Adjusting for touch events
-        if (e.type.includes('touch')) {
+        if (e instanceof TouchEvent) {
             percent = (e.touches[0].clientX - bounds.left) / bounds.width;
         } else {
             percent = (e.clientX - bounds.left) / bounds.width;
@@ -116,7 +116,7 @@ function Track({ trackName, trackUrl, downloadUrl, onPlay, isPlaying }) {
     }
 
     useEffect(function () {
-        const updatePositionWithEvent = (e) => updatePosition(e.type.includes('touch') ? e.touches[0] : e);
+        const updatePositionWithEvent = (e) => updatePosition(e instanceof TouchEvent ? e.touches[0] : e);
         const element = document;
         element.addEventListener('mousemove', updatePositionWithEvent);
         element.addEventListener('mouseup', stopDragging);
