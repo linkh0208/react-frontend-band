@@ -18,7 +18,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -211,7 +211,7 @@
 .title {
   font-family: BrooklynSamuelsFive-Bold;
   color: #fceb8b;
-  font-size: 100px;
+  font-size: clamp(10px, 100px, 100px);
   text-shadow: 0 2px 2px #fceb8b,
     -2px 5px 0 #fcc547,
     -4px 10px 0 #f0a131,
