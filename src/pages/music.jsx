@@ -10,13 +10,9 @@ import albumart from '../assets/albumart.jpg'
 function Music() {
     const tracks = [
         { name: 'Orange Juice', url: track1, downloadUrl: track1 },
-        { name: 'Track 2', url: track2, downloadUrl: track2 },
-        { name: 'Track 3', url: track3, downloadUrl: track3 },
-        { name: 'Track 4', url: track4, downloadUrl: track4 },
-        { name: 'Orange Juice', url: track1, downloadUrl: track1 },
-        { name: 'Track 2', url: track2, downloadUrl: track2 },
-        { name: 'Track 3', url: track3, downloadUrl: track3 },
-        { name: 'Track 4', url: track4, downloadUrl: track4 },
+        { name: 'Baloney', url: track2, downloadUrl: track2 },
+        { name: 'La Computadora', url: track3, downloadUrl: track3 },
+        { name: 'Balls', url: track4, downloadUrl: track4 },
     ]
     return (
         <div className='music'>
@@ -31,7 +27,7 @@ function Music() {
                 }}               
             />
             <PlaylistCard
-                playlistName='Album 1'
+                playlistName='Album 2'
                 tracks={tracks}
                 albumArt={albumart}
                 colorScheme={{
