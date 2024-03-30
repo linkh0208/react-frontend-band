@@ -2,14 +2,41 @@ import { useState, useRef, useEffect } from 'react'
 import { MdDownload } from "react-icons/md";
 import { IoPlaySharp, IoPauseSharp  } from "react-icons/io5";
 
+function formatTime(time) {
+    let formattedTime = ''
+    let minutes = 0
+    let seconds = 0
+    minutes = Math.floor(time/60)
+    seconds = Math.floor(time%60)
+    if (seconds < 10) {
+        seconds = '0' + seconds
+    }
+    formattedTime = `${minutes}:${seconds}`
+
+    return formattedTime 
+}
+
 function Track({ trackName, trackUrl, downloadUrl, }) {
     const [progress, setProgress] = useState(0)
     const [isPaused, setIsPaused] = useState(true)
     const audioRef = useRef(new Audio(trackUrl))
     const progressBarRef = useRef(null)
     const isDragging = useRef(false)
+    const [trackTime, setTrackTime] = useState(0)
 
-
+    useEffect(function() {
+        const audio = audioRef.current;
+    
+        function onMetadataLoaded() {
+            setTrackTime(formatTime(audio.duration));
+        }
+    
+        audio.addEventListener('loadedmetadata', onMetadataLoaded);
+    
+        return function() {
+            audio.removeEventListener('loadedmetadata', onMetadataLoaded);
+        };
+    }, []);
 
     useEffect(function() {
         isPaused ? audioRef.current.pause() : audioRef.current.play()
@@ -46,9 +73,6 @@ function Track({ trackName, trackUrl, downloadUrl, }) {
         setIsPaused(!isPaused)
     }
 
-    function handleDownload() {
-        window.location.href = downloadUrl
-    }
     function startDragging(e) {
         isDragging.current = true
         progressBarRef.current.classList.add('grabbing')
@@ -77,14 +101,6 @@ function Track({ trackName, trackUrl, downloadUrl, }) {
             document.removeEventListener('mouseup', stopDragging)
         }
     })
-    function setPlaybackTime(e) {
-        const progressBar = progressBarRef.current
-        const bounds = progressBar.getBoundingClientRect()
-        const percent = (e.clientX-bounds.left)/bounds.width
-        const newTime = percent*audioRef.current.duration
-        audioRef.current.currentTime = newTime
-        setProgress(percent*100)
-    }
 
     return (    
         <div className='track'>
@@ -94,11 +110,14 @@ function Track({ trackName, trackUrl, downloadUrl, }) {
                     {isPaused ?  <IoPlaySharp /> : <IoPauseSharp /> }
                 </div>
             </div>
+            <div className='time'>{formatTime(audioRef.current.currentTime)}</div>
             <div className="progressbarcontainer" ref={progressBarRef} onMouseDown={startDragging}>
                 <div className='progressbar' style={{ width: `${progress}%` }}>
                     <div className='progressindicator' style={{ transform: `translateX(${progressBarRef.current ? progressBarRef.current.offsetWidth*progress/100-2:0}px)` }}></div>
                 </div>
             </div>
+            <div className='time'>
+                {trackTime}</div>
             <a href={trackUrl} download className='downloadbutton'>
                 <MdDownload />
             </a>

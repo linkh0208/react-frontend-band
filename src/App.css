@@ -83,7 +83,7 @@
 }
 
 .trackscontainer {
-  width: 59%;
+  width: 67%;
 }
 .track {
   display: flex;
@@ -114,7 +114,7 @@
   width: 100%;
   position: relative;
   height: 3px;
-  margin: 0 10px;
+  margin: 0 20px;
   background-color: rgba(255, 255, 255, 0.05);
   cursor: grab;
 }
@@ -132,6 +132,14 @@
 .playbutton, .downloadbutton {
   cursor: pointer;
   font-size: 1.5rem;
+}
+
+.playbutton {
+  margin-right: 10px;
+}
+
+.downloadbutton {
+  margin-left: 10px;
 }
 
 .progressindicator {
@@ -237,4 +245,8 @@
 
 .albumdlbutton:-webkit-details-marker {
   display: none;
+}
+
+.time {
+  font-size: 0.8rem;
 }
