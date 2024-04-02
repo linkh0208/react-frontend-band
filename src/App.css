@@ -24,6 +24,12 @@
   padding: 0;
 }
 
+@media (max-width: 768px) {
+  .home-page {
+    min-height: 900px;
+  }
+}
+
 .homebg-container {
   position: fixed;
   top: 0;
@@ -44,7 +50,11 @@
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
+
 }
+
+
 
 .nav-link {
   margin: 30px;
